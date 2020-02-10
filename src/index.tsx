@@ -32,6 +32,7 @@ class PAGE_NAME_UPPER_CAMEL_CASE extends React.Component<Props> {
         edit: true,
         record,
         key: uuidv1(),
+        isTouched: false,
       },
     });
   };
@@ -72,12 +73,12 @@ class PAGE_NAME_UPPER_CAMEL_CASE extends React.Component<Props> {
         dataIndex: 'index',
         align: 'center',
         width: '150px',
-        // search: 'filter' || 'search'
       },
       {
         title: 'Thao tác',
         align: 'center',
         render: (value, record) => renderLast(value, record),
+        fixed: 'right',
         width: 110,
       }
     ];
@@ -91,10 +92,10 @@ class PAGE_NAME_UPPER_CAMEL_CASE extends React.Component<Props> {
         columns={columns}
         cond={{}}
         Form={Form}
-        title={''}
+        title={'Chưa cập nhật'}
         hasCreate
         tableProp={{
-          scroll: { x: 1000, y: 600 }
+          scroll: { x: 1000 }
         }}
       />
     );

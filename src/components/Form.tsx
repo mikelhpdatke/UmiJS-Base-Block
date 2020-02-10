@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { getRecordValue } from '@/utils/utils';
 import rules from '@/utils/rules';
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
-import { formItemLayout, tailFormItemLayout } from '@/utils/form';
+import { formItemLayout, tailFormItemLayout, handleValuesChange, handleCommonSubmit, getSubmitText } from '@/utils/form';
 
 type PAGE_NAME_UPPER_CAMEL_CASE_Props = {
   model: { edit, record },
@@ -24,23 +24,7 @@ class PAGE_NAME_UPPER_CAMEL_CASE extends React.Component<PAGE_NAME_UPPER_CAMEL_C
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (err) return;
-      if (edit) {
-        this.props.dispatch({
-          type: `PAGE_NAME/upd`,
-          payload: {
-            ...values,
-            _id: record._id,
-          },
-        });
-      } else {
-        this.props.dispatch({
-          type: `PAGE_NAME/add`,
-          payload: {
-            ...cond,
-            ...values,
-          },
-        });
-      }
+      handleCommonSubmit(values, this.props);
     });
   };
 
@@ -58,18 +42,12 @@ class PAGE_NAME_UPPER_CAMEL_CASE extends React.Component<PAGE_NAME_UPPER_CAMEL_C
             <Row>
               <Col span={18}>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                  <Form.Item label="Tên môn học">
-                    {getFieldDecorator('dataIndex', {
-                      initialValue: getRecordValue(model, cond, 'dataIndex', ''),
-                      rules: [...rules.required],
-                    })(<Input />)}
-                  </Form.Item>
 
                   <Spin spinning={loading}>
                     <Form.Item {...tailFormItemLayout}>
                       <Button.Group>
                         <Button type="primary" icon="plus" htmlType="submit">
-                          {model.edit ? 'Cập nhật' : 'Thêm mới'}
+                          {getSubmitText(model)}
                         </Button>
                       </Button.Group>
                     </Form.Item>
@@ -84,6 +62,6 @@ class PAGE_NAME_UPPER_CAMEL_CASE extends React.Component<PAGE_NAME_UPPER_CAMEL_C
   }
 }
 
-const WrappedForm = Form.create({ name: 'PAGE_NAME_UPPER_CAMEL_CASE' })(PAGE_NAME_UPPER_CAMEL_CASE);
+const WrappedForm = Form.create({ name: 'PAGE_NAME_UPPER_CAMEL_CASE', onValuesChange: handleValuesChange })(PAGE_NAME_UPPER_CAMEL_CASE);
 
 export default WrappedForm;
