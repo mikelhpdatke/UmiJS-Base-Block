@@ -6,6 +6,7 @@ import { IColumn } from '@/utils/interfaces';
 import Form from './components/Form';
 import TableBase from '@/components/Table/Table';
 import { IBase } from '@/utils/base';
+import moment from 'moment';
 
 type Props = {
   PAGE_NAME: IBase,
@@ -73,6 +74,14 @@ class PAGE_NAME_UPPER_CAMEL_CASE extends React.Component<Props> {
         dataIndex: 'index',
         align: 'center',
         width: '150px',
+      },
+      {
+        title: 'Ngày tạo',
+        dataIndex: 'createdAt',
+        align: 'center',
+        width: 110,
+        render: val => <span title={moment(val).format('DD/MM/YYYY HH:mm:ss')}>{moment(val).format('DD/MM/YYYY')}</span>,
+        search: 'sort',
       },
       {
         title: 'Thao tác',
