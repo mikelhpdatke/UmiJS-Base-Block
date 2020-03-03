@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "Sample Page",
     "repository": {
-        "type": "git",
+        "type": "git"
     },
     "license": "ISC",
     "main": "src/index.js",
